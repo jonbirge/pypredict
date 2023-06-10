@@ -5,8 +5,6 @@
 
 This software is a real-time satellite tracker and orbit propagator. It displays any satellite's position and orbital parameters in real time. It can also simulate satellite deployments of one satellite from another with different velocities, considering the mass of the satellites. It is inspired by [Gpredict](https://github.com/csete/gpredict) and [Orbitron](http://www.stoff.pl/).
 
-Additionally, there is a class defined in AOAwithTDOA.py which replicates the method of the research paper called "A simple and accurate TDOA-AOA localization method using two stations". There are also all the simulations for a research paper submitted at Remote Sensing with the name: "A femto-satellite localization method based on TDOA and AOA using two CubeSats". More information about this at the bottom of this file.
-
 ### Features
 
 The following are some of the key features of Pypredict:
