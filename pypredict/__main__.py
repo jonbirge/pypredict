@@ -5,8 +5,7 @@
     orbital parameters in real time. Simulates satellite localization
     and deployment.
     
-    Copyright (C) 2018-2022, Matías Vidal Valladares, matvidal.
-    Authors: Matías Vidal Valladares <matias.vidal.v@gmail.com>
+    Copyright (C) 2018-2022, Matías Valladares and Jonathan Birge.
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,6 +20,7 @@
     You should have received a copy of the GNU General Public License
     along with this program. If not, see <https://www.gnu.org/licenses/>.
 """
+
 from pkg_resources import resource_filename
 from pypredict.sat import Sat
 from PyQt5 import QtWidgets
@@ -28,13 +28,8 @@ from pypredict.app import ApplicationWindow
 import sys
 
 data_path = resource_filename("pypredict","data/")
-
-SUCHAI = Sat(name="SUCHAI", tlepath="{}cubesat.txt".format(data_path), cat="CubeSat")
-SUCHAI2 = Sat(name="SUCHAI-2", tlepath="{}active.txt".format(data_path), cat="CubeSat")
-SUCHAI3 = Sat(name="SUCHAI-3", tlepath="{}active.txt".format(data_path), cat="CubeSat")
-PLANTSAT = Sat(name="PLANTSAT", tlepath="{}active.txt".format(data_path), cat="CubeSat")
 ISS = Sat(name="ISS (ZARYA)", tlepath="{}tdrss.txt".format(data_path), cat="Tracking and Data Relay")
-Sats = [SUCHAI, SUCHAI2, SUCHAI3, PLANTSAT, ISS]
+Sats = [ISS]
 
 def main(args=None):
     if args is None:

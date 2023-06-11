@@ -1,7 +1,5 @@
 """
 Real-time satellite tracker and orbit propagator
-See:
-https://github.com/spel-uchile/Pypredict
 """
 
 # Always prefer setuptools over distutils
@@ -10,8 +8,8 @@ from os import path
 import sys
 
 here = path.abspath(path.dirname(__file__))
-description = 'Real-time satellite tracker and orbit propagator'
-version = '3.3.1'
+description = 'Satellite tracker and orbit propagator'
+version = '3.3.2'
 
 # Get the long description from the README file
 with open(path.join(here, 'README.md'), encoding='utf-8') as f:
@@ -19,24 +17,6 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 def read_license(file_name):
     return open(path.join(here, file_name)).read()
-
-def write_desktop_file():
-    home = path.expanduser('~')
-    python_ver = 'python{}.{}'.format(sys.version_info[0], sys.version_info[1])
-    icon = 'Icon={}/.local/lib/{}/site-packages/pypredict/img/favicon.png'.format(home, python_ver)
-    with open('{}/Pypredict.desktop'.format(here), 'w') as f:
-        f.write('[Desktop Entry]\n')
-        f.write('Type=Application\n')
-        f.write('Name=Pypredict\n')
-        f.write('Version={}\n'.format(version))
-        f.write('GenericName=Orbit propagator\n')
-        f.write('Comment={}\n'.format(description))
-        f.write('Terminal=false\n')
-        f.write('Categories=Application;Science;DataVisualization;Engineering\n')
-        f.write('StartupNotify=true\n')
-        f.write('Exec={}/.local/bin/pypredict\n'.format(home))
-        f.write(icon)
-    return [('share/applications', ['Pypredict.desktop'])]
 
 # Arguments marked as "Required" below must be included for upload to PyPI.
 # Fields marked as "Optional" may be commented out.
@@ -94,15 +74,15 @@ setup(
     #
     # This field corresponds to the "Home-Page" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#home-page-optional
-    url='https://github.com/spel-uchile/Pypredict',  # Optional
+    # url='https://github.com/spel-uchile/Pypredict',  # Optional
 
     # This should be your name or the name of the organization which owns the
     # project.
-    author='Matias Vidal Valladares',  # Optional
+    author='Jonathan Birge',  # Optional
 
     # This should be a valid email address corresponding to the author listed
     # above.
-    author_email='matias.vidal.v@gmail.com',  # Optional
+    author_email='birge@mit.edu',  # Optional
 
     license=read_license("LICENSE"),
 
@@ -118,7 +98,6 @@ setup(
 
         # Indicate who your project is intended for
         'Intended Audience :: Science/Research',
-        'Intended Audience :: Education',
         'Topic :: Scientific/Engineering',
         'Topic :: Scientific/Engineering :: Astronomy',
         'Topic :: Scientific/Engineering :: Visualization',
@@ -154,7 +133,7 @@ setup(
     #
     #   py_modules=["my_module"],
     #
-    packages=['pypredict', 'pypredict.ui'],#find_packages(where='pypredict'),  # Required
+    packages=['pypredict', 'pypredict.ui'], #find_packages(where='pypredict'),  # Required
 
     # Specify which Python versions you support. In contrast to the
     # 'Programming Language' classifiers above, 'pip install' will check this
@@ -205,13 +184,6 @@ setup(
         'pypredict': ['data/*.txt', 'img/*.png'],
     },
 
-    # Although 'package_data' is the preferred approach, in some case you may
-    # need to place data files outside of your packages. See:
-    # http://docs.python.org/3.4/distutils/setupscript.html#installing-additional-files
-    #
-    # In this case, 'data_file' will be installed into '<sys.prefix>/my_data'
-    data_files=write_desktop_file(),#[('share/applications', ['data/Pypredict.desktop'])],  # Optional
-
     # To provide executable scripts, use entry points in preference to the
     # "scripts" keyword. Entry points provide cross-platform support and allow
     # `pip` to create the appropriate form of executable for the target
@@ -223,19 +195,5 @@ setup(
         'console_scripts': [
             'pypredict=pypredict.__main__:main',
         ],
-    },
-
-    # List additional URLs that are relevant to your project as a dict.
-    #
-    # This field corresponds to the "Project-URL" metadata fields:
-    # https://packaging.python.org/specifications/core-metadata/#project-url-multiple-use
-    #
-    # Examples listed include a pattern for specifying where the package tracks
-    # issues, where the source is hosted, where to say thanks to the package
-    # maintainers, and where to support the project financially. The key is
-    # what's used to render the link text on PyPI.
-    project_urls={  # Optional
-        'Bug Reports': 'https://github.com/spel-uchile/Pypredict/issues',
-        'Source': 'https://github.com/spel-uchile/Pypredict'
     },
 )
