@@ -1,25 +1,4 @@
-"""
-                                Pypredict
-    Orbit prediction software. Displays the satellites' position and
-    orbital parameters in real time. Simulates satellite localization
-    and deployment.
-    
-    Copyright (C) 2018-2022, Matías Vidal Valladares, matvidal.
-    Authors: Matías Vidal Valladares <matias.vidal.v@gmail.com>
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program. If not, see <https://www.gnu.org/licenses/>.
-"""
 __version__ = "3.3.1"
 
 from cartopy.crs import Geodetic, PlateCarree
@@ -33,14 +12,12 @@ from pkg_resources import resource_filename
 from PyQt5 import QtWidgets, QtGui, QtCore
 from pymongo import MongoClient
 from pypredict.dayNightMap import Map
-from pypredict.dpl import Dpl
 from pypredict.navigation import Toolbar
 from pypredict.sat import Sat
 from pypredict.SAA import SAA
 from pypredict.ui.main_window import Ui_MainWindow
 from pypredict.ui.about_dialog import Ui_About
 from pypredict.ui.addRemove_dialog import Ui_addRemove
-from pypredict.ui.dpl_dialog import Ui_DPL
 from pypredict.ui.updateTLE_dialog import Ui_updateTLE
 from urllib.request import urlopen
 
@@ -55,7 +32,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                  "military", "molniya", "noaa", "oneweb", "planet",
                  "radar", "resource", "sarsat", "spire", "tdrss",
                  "tle_new", "weather", "x_comm", "active", "tle_files",
-                 "map", "dpl_img", "tdoa_img", "world_map", "dpl",
+                 "map", "world_map",
                  "dmin", "canvas", "saa", "date", "db", "en_db",
                  "time_timer", "sats_timer", "canvas_timer",
                  "bg_timer", "Dialog", "table_timer", "sats_lngs",
@@ -127,12 +104,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
                                          "QToolButton:hover {background-color: #454545; color: white; border: none;}"
                                          "QToolButton:hover {background-color: #555555; color: white; border: none;}")
         self.ui.sat_button.setStyleSheet("QToolButton {background-color: #353535; color: white; border:none;}"
-                                         "QToolButton:hover {background-color: #454545; color: white; border: none;}"
-                                         "QToolButton:hover {background-color: #555555; color: white; border: none;}")
-        self.ui.dpl_button.setStyleSheet("QToolButton {background-color: #353535; color: white; border:none;}"
-                                         "QToolButton:hover {background-color: #454545; color: white; border: none;}"
-                                         "QToolButton:hover {background-color: #555555; color: white; border: none;}")
-        self.ui.loc_button.setStyleSheet("QToolButton {background-color: #353535; color: white; border:none;}"
                                          "QToolButton:hover {background-color: #454545; color: white; border: none;}"
                                          "QToolButton:hover {background-color: #555555; color: white; border: none;}")
         self.ui.play.setStyleSheet("QToolButton {background-color: #353535; color: white; border:none;}"
@@ -400,8 +371,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.download_button.clicked.connect(self.updateTLEDialog)
         self.ui.cov_button.clicked.connect(self.removeCoverage)
         self.ui.sat_button.clicked.connect(self.addRemoveSat)
-        self.ui.dpl_button.clicked.connect(self.deployPopup)
-        self.ui.loc_button.clicked.connect(self.notAvailable)
         self.ui.backward.clicked.connect(self.speed_up_backward)
         self.ui.play.clicked.connect(self.pause_time)
         self.ui.stop.clicked.connect(self.stop_time)
@@ -410,80 +379,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.download_button.setToolTip("Update TLE from network")
         self.ui.cov_button.setToolTip("Add/remove sat's coverage")
         self.ui.sat_button.setToolTip("Add/remove satellites")
-        self.ui.dpl_button.setToolTip("Simulates the deployment\nof a satellite from another")
-        self.ui.loc_button.setToolTip("Simulate localization (not implemented yet)")
         self.ui.backward.setToolTip("Fast backward")
         self.ui.play.setToolTip("Resume or pause the time")
         self.ui.stop.setToolTip("Back to current time")
         self.ui.forward.setToolTip("Fast forward")
-        self.ui.loc_button.setIcon(QtGui.QIcon("{}locicon.png".format(self.img_path)))
-
-    def deployPopup(self):
-        """
-        Instantiates the deployment dialog. Connects the dialog's
-        buttons to their respective methods.
-        """
-        self.Dialog = QtWidgets.QDialog()
-        self.popup = Ui_DPL()
-        self.popup.setupUi(self.Dialog)
-        self.Dialog.setWindowTitle("Deployment settings")
-        self.showCurrentSats()
-        self.popup.curr_sats_tab.itemClicked.connect(self.selectDeployer)
-        self.popup.deploy_now_bt.clicked.connect(self.deploySat)
-        self.dpl = Dpl()
-        self.Dialog.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-        self.Dialog.exec_()
-
-    def selectDeployer(self, item):
-        """
-        Obtains the deployer's name that the user wrote in the table.
-        Sets this name in the deployer's label.
-
-        Parameters
-        ----------
-        item : QTableWidgetItem
-               The table's item selected by the user. In
-               this case, the deployer's name.
-        """
-        deployer_name = item.text()
-        self.popup.deployer_name_lbl.setText(deployer_name)
-
-    def deploySat(self):
-        """
-        Gets all the data the user input to simulate the deployment of
-        a satellite from another one. The new satellite is created and
-        added to Sats list. A new axes fill and text is created for the
-        new satellite's coverage and name.
-        """
-        deployer_name = self.popup.deployer_name_lbl.text()
-        dplyr_mass = float(self.popup.mass_box1.text())
-        dplyd_mass = float(self.popup.mass_box2.text())
-        spdx = int(self.popup.spdx_box.text())
-        spdy = int(self.popup.spdy_box.text())
-        spdz = int(self.popup.spdz_box.text())
-        name = self.popup.name_box.text()
-        cat = self.popup.cat_box.text()
-        for sat in self.Sats:
-            if (sat.name == deployer_name):
-                deployer = sat
-                break
-        newSat = self.dpl.deploy(cat, deployer, dplyr_mass,
-                dplyd_mass, name, [spdx, spdy, spdz], date=self.date)
-        xy = ndarray(shape=(200,2), dtype=float)
-        self.ax_cov.append(self.ax.add_patch(Polygon(xy, color='w',
-                                                     transform=Geodetic(),
-                                                     alpha=self.cov_alpha)))
-        self.sat_txt.append(self.ax.text([], [], "", color='yellow', size=7,
-                            ha="center", va="center"))
-        self.Sats.append(newSat)
-        self.sortSats()
-        self.sats_lngs.append(0.0)
-        self.sats_lats.append(0.0)
-        for i, Sat in enumerate(self.Sats):
-            self.sat_txt[i].set_text(Sat.name)
-            self.sats_lngs[i] = Sat.getLng(date=self.date)
-            self.sats_lats[i] = Sat.getLat()
-        self.Dialog.close()
 
     def speed_up_backward(self):
         """
@@ -507,7 +406,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.format_dt()
 
     def pause_time(self):
-        "It pauses the program's time."
+        "Pause the program's time."
         self.forward = False
         self.backward = False
         self.pause = True
@@ -516,7 +415,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.format_dt()
 
     def stop_time(self):
-        "Returns the time to the present."
+        "Return the time to the present."
         self.forward = False
         self.backward = False
         self.pause = False
@@ -624,8 +523,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.statusbar.layout().addWidget(self.ui.download_button)
         self.ui.statusbar.layout().addWidget(self.ui.cov_button)
         self.ui.statusbar.layout().addWidget(self.ui.sat_button)
-        self.ui.statusbar.layout().addWidget(self.ui.dpl_button)
-        self.ui.statusbar.layout().addWidget(self.ui.loc_button)
         self.ui.statusbar.layout().addWidget(self.ui.backward)
         self.ui.statusbar.layout().addWidget(self.ui.play)
         self.ui.statusbar.layout().addWidget(self.ui.stop)
@@ -1114,7 +1011,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.showCurrentSats()
         self.showAvailSats()
         self.popup.srch_box.textChanged.connect(self.searchSat)
-        Dialog.exec_()
+        Dialog.exec()
 
     def fullscreen(self, event=None):
         """
@@ -1157,7 +1054,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.popup.buttonBox.accepted.connect(self.updateTLEfromNet)
         self.popup.buttonBox.rejected.connect(self.Dialog.reject)
         self.Dialog.setWindowTitle("Update TLE from network")
-        self.Dialog.exec_()
+        self.Dialog.exec()
 
     def updateTLEfromNet(self):
         """
@@ -1245,10 +1142,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         ui.setupUi(Dialog)
         Dialog.setWindowTitle('About Pypredict')
         pixmap = QtGui.QPixmap('{}favicon.png'.format(self.img_path))
-        ui.icon.setPixmap(pixmap)
         ui.version.setText("Pypredict {}".format(__version__))
         Dialog.setAttribute(QtCore.Qt.WA_DeleteOnClose)
-        Dialog.exec_()
+        Dialog.exec()
 
     def setMenu(self):
         """

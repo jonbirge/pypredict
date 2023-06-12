@@ -73,7 +73,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.download_button)
         self.cov_button = QtWidgets.QToolButton(self.frame_plot)
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(12)
         self.cov_button.setFont(font)
         self.cov_button.setStyleSheet("QToolButton {\n"
 "    border:none;\n"
@@ -93,7 +93,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.cov_button)
         self.sat_button = QtWidgets.QToolButton(self.frame_plot)
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(12)
         self.sat_button.setFont(font)
         self.sat_button.setStyleSheet("QToolButton {\n"
 "    border:none;\n"
@@ -111,57 +111,6 @@ class Ui_MainWindow(object):
 "}")
         self.sat_button.setObjectName("sat_button")
         self.horizontalLayout.addWidget(self.sat_button)
-        self.dpl_button = QtWidgets.QToolButton(self.frame_plot)
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        self.dpl_button.setFont(font)
-        self.dpl_button.setStyleSheet("QToolButton {\n"
-"    border:none;\n"
-"    background-color: rgb(238, 238, 236);\n"
-"}\n"
-"\n"
-"QToolButton:hover {\n"
-"    border: 1px solid rgb(186, 189, 182);\n"
-"    background-color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QToolButton:pressed {\n"
-"    border: 1px solid rgb(186, 189, 182);\n"
-"    background-color: rgb(211, 215, 207);\n"
-"}")
-        self.dpl_button.setObjectName("dpl_button")
-        self.horizontalLayout.addWidget(self.dpl_button)
-        self.loc_button = QtWidgets.QToolButton(self.frame_plot)
-        self.loc_button.setEnabled(True)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.loc_button.sizePolicy().hasHeightForWidth())
-        self.loc_button.setSizePolicy(sizePolicy)
-        font = QtGui.QFont()
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setWeight(50)
-        font.setKerning(True)
-        self.loc_button.setFont(font)
-        self.loc_button.setToolTip("")
-        self.loc_button.setWhatsThis("")
-        self.loc_button.setStyleSheet("QToolButton {\n"
-"    border:none;\n"
-"    background-color: rgb(238, 238, 236);\n"
-"}\n"
-"\n"
-"QToolButton:hover {\n"
-"    border: 1px solid rgb(186, 189, 182);\n"
-"    background-color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"QToolButton:pressed {\n"
-"    border: 1px solid rgb(186, 189, 182);\n"
-"    background-color: rgb(211, 215, 207);\n"
-"}")
-        self.loc_button.setObjectName("loc_button")
-        self.horizontalLayout.addWidget(self.loc_button)
         self.backward = QtWidgets.QToolButton(self.frame_plot)
         font = QtGui.QFont()
         font.setPointSize(14)
@@ -302,7 +251,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addWidget(self.tabWidget)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1263, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1263, 20))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -312,8 +261,6 @@ class Ui_MainWindow(object):
         self.menuEdit.setObjectName("menuEdit")
         self.menuView = QtWidgets.QMenu(self.menubar)
         self.menuView.setObjectName("menuView")
-        self.menuChange_planet = QtWidgets.QMenu(self.menuView)
-        self.menuChange_planet.setObjectName("menuChange_planet")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setSizeGripEnabled(True)
@@ -359,10 +306,7 @@ class Ui_MainWindow(object):
         self.menuEdit.addAction(self.actionAdd_south_atlantic_anomaly)
         self.menuEdit.addAction(self.actionRemove_coverage)
         self.menuEdit.addAction(self.actionAdd_remove_satellites)
-        self.menuChange_planet.addAction(self.actionEarth)
-        self.menuChange_planet.addAction(self.actionMars)
         self.menuView.addAction(self.actionFullscreen)
-        self.menuView.addAction(self.menuChange_planet.menuAction())
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
         self.menubar.addAction(self.menuView.menuAction())
@@ -377,10 +321,8 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "PyPredict"))
         self.download_button.setText(_translate("MainWindow", "⬇"))
-        self.cov_button.setText(_translate("MainWindow", "⬭"))
-        self.sat_button.setText(_translate("MainWindow", "🛰"))
-        self.dpl_button.setText(_translate("MainWindow", "🌠"))
-        self.loc_button.setText(_translate("MainWindow", "⌖"))
+        self.cov_button.setText(_translate("MainWindow", "Vis"))
+        self.sat_button.setText(_translate("MainWindow", "Sats"))
         self.backward.setText(_translate("MainWindow", "◀◀"))
         self.play.setText(_translate("MainWindow", "| |"))
         self.stop.setText(_translate("MainWindow", "■"))
@@ -419,9 +361,8 @@ class Ui_MainWindow(object):
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
         self.menuEdit.setTitle(_translate("MainWindow", "E&dit"))
         self.menuView.setTitle(_translate("MainWindow", "&View"))
-        self.menuChange_planet.setTitle(_translate("MainWindow", "&Change planet"))
         self.actionExit.setText(_translate("MainWindow", "&Exit"))
-        self.actionAbout.setText(_translate("MainWindow", "&About Pypredict"))
+        self.actionAbout.setText(_translate("MainWindow", "&About pypredict..."))
         self.actionOpen.setText(_translate("MainWindow", "&Open"))
         self.actionSave_picture.setText(_translate("MainWindow", "&Save picture"))
         self.actionUpdate_TLE_from_net.setText(_translate("MainWindow", "&Update TLE from net"))

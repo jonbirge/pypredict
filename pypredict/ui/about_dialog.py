@@ -18,11 +18,6 @@ class Ui_About(object):
         About.setMinimumSize(QtCore.QSize(500, 0))
         self.verticalLayout = QtWidgets.QVBoxLayout(About)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.icon = QtWidgets.QLabel(About)
-        self.icon.setText("")
-        self.icon.setAlignment(QtCore.Qt.AlignCenter)
-        self.icon.setObjectName("icon")
-        self.verticalLayout.addWidget(self.icon)
         self.version = QtWidgets.QLabel(About)
         font = QtGui.QFont()
         font.setBold(True)
@@ -43,14 +38,14 @@ class Ui_About(object):
     def retranslateUi(self, About):
         _translate = QtCore.QCoreApplication.translate
         About.setWindowTitle(_translate("About", "Dialog"))
-        self.version.setText(_translate("About", "pypredict"))
+        self.version.setText(_translate("About", "<html><head/><body><p><span style=\" font-size:12pt;\">pypredict</span></p></body></html>"))
         self.textEdit.setHtml(_translate("About", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Copyright (C) 2018-2023, Matías Valladares and Jonathan Birge.</p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">This program comes with ABSOLUTELY NO WARRANTY.</p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">See the GNU General Public License, version 3 or later for details.</p></body></html>"))
+"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Ubuntu\'; font-size:11pt;\">Copyright (C) 2018-2023, Matías Valladares and Jonathan Birge.</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Ubuntu\'; font-size:11pt;\">This program comes with ABSOLUTELY NO WARRANTY.</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Ubuntu\'; font-size:11pt;\">See the GNU General Public License, version 3 or later for details.</span></p></body></html>"))
 
 
 if __name__ == "__main__":

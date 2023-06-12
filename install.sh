@@ -1,4 +1,7 @@
 #!/bin/bash
 
-pip3 install --no-binary shapely
-pip3 install .
+cd pypredict/ui
+./build.sh
+cd ../..
+pip3 install . --no-binary shapely
+

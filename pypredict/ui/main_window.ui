@@ -144,7 +144,7 @@ QToolButton:pressed {
             <widget class="QToolButton" name="cov_button">
              <property name="font">
               <font>
-               <pointsize>14</pointsize>
+               <pointsize>12</pointsize>
               </font>
              </property>
              <property name="styleSheet">
@@ -164,7 +164,7 @@ QToolButton:pressed {
 }</string>
              </property>
              <property name="text">
-              <string>⬭</string>
+              <string>Vis</string>
              </property>
             </widget>
            </item>
@@ -172,7 +172,7 @@ QToolButton:pressed {
             <widget class="QToolButton" name="sat_button">
              <property name="font">
               <font>
-               <pointsize>14</pointsize>
+               <pointsize>12</pointsize>
               </font>
              </property>
              <property name="styleSheet">
@@ -192,81 +192,7 @@ QToolButton:pressed {
 }</string>
              </property>
              <property name="text">
-              <string>🛰</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QToolButton" name="dpl_button">
-             <property name="font">
-              <font>
-               <pointsize>14</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QToolButton {
-    border:none;
-	background-color: rgb(238, 238, 236);
-}
-
-QToolButton:hover {
-	border: 1px solid rgb(186, 189, 182);
-	background-color: rgb(255, 255, 255);
-}
-
-QToolButton:pressed {
-	border: 1px solid rgb(186, 189, 182);
-	background-color: rgb(211, 215, 207);
-}</string>
-             </property>
-             <property name="text">
-              <string>🌠</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QToolButton" name="loc_button">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>14</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
-               <kerning>true</kerning>
-              </font>
-             </property>
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="whatsThis">
-              <string/>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QToolButton {
-    border:none;
-	background-color: rgb(238, 238, 236);
-}
-
-QToolButton:hover {
-	border: 1px solid rgb(186, 189, 182);
-	background-color: rgb(255, 255, 255);
-}
-
-QToolButton:pressed {
-	border: 1px solid rgb(186, 189, 182);
-	background-color: rgb(211, 215, 207);
-}</string>
-             </property>
-             <property name="text">
-              <string>⌖</string>
+              <string>Sats</string>
              </property>
             </widget>
            </item>
@@ -533,7 +459,7 @@ QToolButton:pressed {
      <x>0</x>
      <y>0</y>
      <width>1263</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -567,15 +493,7 @@ QToolButton:pressed {
     <property name="title">
      <string>&amp;View</string>
     </property>
-    <widget class="QMenu" name="menuChange_planet">
-     <property name="title">
-      <string>&amp;Change planet</string>
-     </property>
-     <addaction name="actionEarth"/>
-     <addaction name="actionMars"/>
-    </widget>
     <addaction name="actionFullscreen"/>
-    <addaction name="menuChange_planet"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -594,7 +512,7 @@ QToolButton:pressed {
   </action>
   <action name="actionAbout">
    <property name="text">
-    <string>&amp;About Pypredict</string>
+    <string>&amp;About pypredict...</string>
    </property>
   </action>
   <action name="actionOpen">

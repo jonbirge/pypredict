@@ -23,19 +23,21 @@
 
 from pkg_resources import resource_filename
 from pypredict.sat import Sat
-from PyQt5 import QtWidgets
 from pypredict.app import ApplicationWindow
+from PyQt5 import QtWidgets
 import sys
 
+# Create initial satellite list
 data_path = resource_filename("pypredict","data/")
-ISS = Sat(name="ISS (ZARYA)", tlepath="{}tdrss.txt".format(data_path), cat="Tracking and Data Relay")
-Sats = [ISS]
+ISS = Sat(name="ISS (ZARYA)", tlepath="{}tdrss.txt".format(data_path))
+sat_list = [ISS]
 
+# Run GUI
 def main(args=None):
     if args is None:
         args = sys.argv[1:]
     app = QtWidgets.QApplication(sys.argv)
-    application = ApplicationWindow(Sats=Sats)
+    application = ApplicationWindow(Sats=sat_list)
     application.show()
     sys.exit(app.exec_())
 
