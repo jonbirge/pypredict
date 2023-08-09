@@ -11,10 +11,10 @@ from numpy import abs, asarray, cos, ndarray, pi
 from pkg_resources import resource_filename
 from PyQt5 import QtWidgets, QtGui, QtCore
 from pymongo import MongoClient
-from pypredict.dayNightMap import Map
+from pypredict.map import Map
 from pypredict.navigation import Toolbar
 from pypredict.sat import Sat
-from pypredict.SAA import SAA
+from pypredict.saa import SAA
 from pypredict.ui.main_window import Ui_MainWindow
 from pypredict.ui.about_dialog import Ui_About
 from pypredict.ui.addRemove_dialog import Ui_addRemove

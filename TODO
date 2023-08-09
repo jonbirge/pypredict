@@ -1,5 +1,9 @@
 Remove unneeded code
-Highlight API
+Disable orbit plotting by default
+Focus API to allow showing and highlighting 
+LLM entry window
+Simple demo of LLM highlight interface
 Proper make system
 Refactor names
-Everything else
+Orbitology API
+

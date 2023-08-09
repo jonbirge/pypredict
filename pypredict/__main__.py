@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-                                Pypredict
+    Pypredict
+    
     Orbit prediction software. Displays the satellites' position and
     orbital parameters in real time. Simulates satellite localization
     and deployment.
