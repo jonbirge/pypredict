@@ -3,5 +3,5 @@
 cd pypredict/ui
 ./build.sh
 cd ../..
-pip3 install . --no-binary shapely
+pip3 install .
 

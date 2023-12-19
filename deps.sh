@@ -8,4 +8,5 @@ apt-get -y install proj-bin
 apt-get -y install python3-dev
 apt-get -y install python3-pip
 apt-get -y install qt5-style-plugins
+apt-get -y install python3-shapely
 
